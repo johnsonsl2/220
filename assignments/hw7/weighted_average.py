@@ -12,21 +12,74 @@ I certify that this assignment is entirely my own work
 
 def weighted_average(in_file_name, out_file_name):
     infile = open(in_file_name, "r")
-    data = infile.read()
-    outfile = open(out_file_name, "w+")
+    outfile = open(out_file_name, "w")
 
-    for line in data:
-        name, nums = line.split(":")
+    student_ave = 0
+    num_student = 0
+
+    for line in infile.readlines():
+        name, num = line.split(': ')
+        num_list = num.split(' ')
+        new_weight = 0
+        average = 0
+        for i in range(0, len(num_list), 2):
+            weight = int(num_list[i])
+            print(weight)
+            new_weight = new_weight + weight
+        if new_weight < 100:
+            outfile.write(name + "'s" + 'average' + ':'  + 'Error: The weights are less than 100.')
+        if new_weight > 100:
+            outfile.write(name + "'s" + 'average' + ':' + 'Error: The weights are more than 100.')
+        else:
+            num_students = num_student + 1
+
+            for n in range(0, len(num_list), 2):
+                int_num = int(num_list[n])
+                grade1 = int(num_list[n + 1])
+                weighted_grade = int_num * grade1
+                average = weighted_grade / 100
+
+            outfile.write(name + "'s" + ' ' + 'average' + ': ' + str(average) + '\n')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+
+
+    for line in infile:
+
+        num = []
+        line_list = line.split(' ')
+        for n in line_list():
+            try:
+                l.append(float(num))
+            except ValueError:
+                pass
+
+        #name_str = str(name)
+        #outfile.write(name_str)
         #print(nums)
         new_weight = 0
-        for i in range(0, len(nums), 2):
-            weight = nums[i]
+        for i in range(0, len(num), 2):
+            weight = num[i]
             new_weight = new_weight + weight
-        if new_weight > 100:
-            print("Error: The weights are more than 100.")
-        elif new_weight < 100:
-            print('Error: The weights are less than 100.')
-        elif:
+        if new_weight <= 100:
+            outfile.write(name + ':' + 'Error: The weights are less than 100.')
+        if new_weight < 100:
+            outfile.write(name + ':'+ 'Error: The weights are more than 100.')
+        else:
             set_list = [nums[x:x + 2] for x in range(0, len(nums), 2)]
 
 
@@ -34,13 +87,15 @@ def weighted_average(in_file_name, out_file_name):
 
 
 
-    print(data)
+
+    #print(data)
 
 
 
 
     #print(outdata)
+"""
 
 
 
-#main()
+weighted_average('grades.txt', 'avg.txt')
