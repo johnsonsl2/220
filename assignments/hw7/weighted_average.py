@@ -8,94 +8,40 @@ Certification of Authenticity:
 I certify that this assignment is entirely my own work
 
 """
-# text format firstName lastName: w1 g1 w2 g2 ... wn gn
+
 
 def weighted_average(in_file_name, out_file_name):
     infile = open(in_file_name, "r")
     outfile = open(out_file_name, "w")
-
-    student_ave = 0
-    num_student = 0
-
+    class_ave = 0
+    students = 0
     for line in infile.readlines():
         name, num = line.split(': ')
         num_list = num.split(' ')
         new_weight = 0
-        average = 0
+        wga = 0
         for i in range(0, len(num_list), 2):
             weight = int(num_list[i])
-            print(weight)
             new_weight = new_weight + weight
         if new_weight < 100:
-            outfile.write(name + "'s" + 'average' + ':'  + 'Error: The weights are less than 100.')
-        if new_weight > 100:
-            outfile.write(name + "'s" + 'average' + ':' + 'Error: The weights are more than 100.')
+            outfile.write(name + "'s " + 'average' + ':'  + ' Error: The weights are less than 100.' + '\n')
+        elif new_weight > 100:
+            outfile.write(name + "'s " + 'average' + ':' + ' Error: The weights are more than 100.'+ '\n')
         else:
-            num_students = num_student + 1
-
+            students = students + 1
             for n in range(0, len(num_list), 2):
                 int_num = int(num_list[n])
                 grade1 = int(num_list[n + 1])
                 weighted_grade = int_num * grade1
-                average = weighted_grade / 100
-
+                wga = wga + weighted_grade
+            average = round( wga / 100 , 1)
             outfile.write(name + "'s" + ' ' + 'average' + ': ' + str(average) + '\n')
+            class_ave = class_ave + average
+    total_class_ave = round( class_ave / students, 1)
+    outfile.write('Class average: ' + str(total_class_ave))
 
+def main():
+    weighted_average('grades.txt', 'avg.txt')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-"""
-
-
-    for line in infile:
-
-        num = []
-        line_list = line.split(' ')
-        for n in line_list():
-            try:
-                l.append(float(num))
-            except ValueError:
-                pass
-
-        #name_str = str(name)
-        #outfile.write(name_str)
-        #print(nums)
-        new_weight = 0
-        for i in range(0, len(num), 2):
-            weight = num[i]
-            new_weight = new_weight + weight
-        if new_weight <= 100:
-            outfile.write(name + ':' + 'Error: The weights are less than 100.')
-        if new_weight < 100:
-            outfile.write(name + ':'+ 'Error: The weights are more than 100.')
-        else:
-            set_list = [nums[x:x + 2] for x in range(0, len(nums), 2)]
-
-
-
-
-
-
-
-    #print(data)
-
-
-
-
-    #print(outdata)
-"""
-
-
-
-weighted_average('grades.txt', 'avg.txt')
+if __name__ == '__main__':
+    main()
